@@ -1,0 +1,15 @@
+TodoList(props, {value:'', todos: [{item:'Buy vegetables', hasDone: false}]})
+  Todo({item, hasDone, onClick})
+
+--------------------------------------------------
+TodoList: 
+  On changing input:
+    - onChange handler will be called to update the value
+  On pressing enter:
+    - todo will be added to the list
+
+Todo:
+  On clicking on the todo item:
+    - onClick received from props, will be called with the todoId 
+    - toggles the hasDone field of the specific todo
+

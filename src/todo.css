@@ -1,0 +1,22 @@
+.todo {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box {
+  height: 15px;
+  width: 15px;
+  margin-bottom: 15px;
+  border: 1px solid black;
+  margin: 5px 5px 5px 2px;
+}
+
+.done {
+  text-decoration: line-through;
+  margin: 5px 5px 7px 5px;
+}
+
+.not-done {
+  text-decoration: none;
+  margin: 5px 5px 7px 5px;
+}
