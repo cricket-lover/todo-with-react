@@ -1,17 +1,16 @@
 import React from 'react';
-import './todo.css';
 
 const Todo = ({ item, isDone, onClick, todoId }) => {
-  const isTodoDone = isDone ? 'done' : 'not-done';
+  let itemClass = 'not-done';
+  let colorClass = 'fill-blue box';
+  if (isDone) {
+    itemClass = 'done';
+    colorClass = 'fill-green box';
+  }
   return (
     <div className="todo">
-      <p
-        className="box"
-        style={{
-          backgroundColor: isDone ? 'mediumseagreen' : 'lightblue',
-        }}
-      ></p>
-      <p className={isTodoDone} onClick={() => onClick(todoId)}>
+      <p className={colorClass}></p>
+      <p className={itemClass} onClick={() => onClick(todoId)}>
         {item}
       </p>
     </div>

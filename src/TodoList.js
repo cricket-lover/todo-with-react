@@ -1,21 +1,16 @@
 import React from 'react';
 import Todo from './Todo';
+import TodoInput from './TodoInput';
+import './todo.css';
 
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
       todos: [],
     };
     this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-  }
-
-  handleChange(event) {
-    const { value } = event.target;
-    this.setState((state) => ({ value }));
+    this.handleEnterPress = this.handleEnterPress.bind(this);
   }
 
   handleClick(todoId) {
@@ -24,12 +19,10 @@ class TodoList extends React.Component {
     this.setState((state) => ({ todos: updatedTodos }));
   }
 
-  handleKeyPress(event) {
-    if (event.which === 13) {
-      const updatedTodos = this.state.todos.slice();
-      updatedTodos.push({ item: this.state.value, isDone: false });
-      this.setState((state) => ({ todos: updatedTodos, value: '' }));
-    }
+  handleEnterPress(value) {
+    const updatedTodos = this.state.todos.slice();
+    updatedTodos.push({ item: value, isDone: false });
+    this.setState((state) => ({ todos: updatedTodos }));
   }
 
   render() {
@@ -45,14 +38,9 @@ class TodoList extends React.Component {
       );
     });
     return (
-      <div style={{ width: '30%', margin: '0 auto' }}>
+      <div className="todo-container">
         {todoList}
-        <input
-          type="text"
-          value={this.state.value}
-          onKeyPress={this.handleKeyPress}
-          onChange={this.handleChange}
-        />
+        <TodoInput onEnterPress={this.handleEnterPress} />
       </div>
     );
   }
