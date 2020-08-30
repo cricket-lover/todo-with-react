@@ -1,6 +1,7 @@
 .todo {
   display: flex;
   flex-wrap: wrap;
+  cursor: pointer;
 }
 
 .todo-container {
@@ -21,7 +22,8 @@
   margin: 5px 5px 7px 5px;
 }
 
-.not-done {
+.not-done,
+.doing {
   text-decoration: none;
   margin: 5px 5px 7px 5px;
 }
@@ -32,4 +34,8 @@
 
 .fill-green {
   background-color: mediumseagreen;
+}
+
+.fill-orange {
+  background-color: orange;
 }

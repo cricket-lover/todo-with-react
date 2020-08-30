@@ -15,13 +15,14 @@ class TodoList extends React.Component {
 
   handleClick(todoId) {
     const updatedTodos = this.state.todos.slice();
-    updatedTodos[todoId].isDone = !updatedTodos[todoId].isDone;
+    let id = updatedTodos[todoId].statusId;
+    updatedTodos[todoId].statusId = ++id % 3;
     this.setState((state) => ({ todos: updatedTodos }));
   }
 
   handleEnterPress(value) {
     const updatedTodos = this.state.todos.slice();
-    updatedTodos.push({ item: value, isDone: false });
+    updatedTodos.push({ item: value, statusId: 0 });
     this.setState((state) => ({ todos: updatedTodos }));
   }
 
@@ -31,7 +32,7 @@ class TodoList extends React.Component {
         <Todo
           key={index}
           item={todo.item}
-          isDone={todo.isDone}
+          statusId={todo.statusId}
           onClick={this.handleClick}
           todoId={index}
         />

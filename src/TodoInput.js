@@ -14,7 +14,7 @@ class TodoInput extends React.Component {
   }
 
   handleKeyDown(event) {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && this.state.value) {
       this.props.onEnterPress(this.state.value);
       this.setState((state) => ({ value: '' }));
     }
