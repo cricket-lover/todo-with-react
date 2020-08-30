@@ -15,19 +15,19 @@ class TodoList extends React.Component {
 
   handleChange(event) {
     const { value } = event.target;
-    this.setState((state) => (state.value = value));
+    this.setState((state) => ({ value }));
   }
 
   handleClick(todoId) {
     const updatedTodos = this.state.todos.slice();
-    updatedTodos[todoId].hasDone = !updatedTodos[todoId].hasDone;
+    updatedTodos[todoId].isDone = !updatedTodos[todoId].isDone;
     this.setState((state) => ({ todos: updatedTodos }));
   }
 
   handleKeyPress(event) {
     if (event.which === 13) {
       const updatedTodos = this.state.todos.slice();
-      updatedTodos.push({ item: this.state.value, hasDone: false });
+      updatedTodos.push({ item: this.state.value, isDone: false });
       this.setState((state) => ({ todos: updatedTodos, value: '' }));
     }
   }
@@ -38,14 +38,14 @@ class TodoList extends React.Component {
         <Todo
           key={index}
           item={todo.item}
-          hasDone={todo.hasDone}
+          isDone={todo.isDone}
           onClick={this.handleClick}
           todoId={index}
         />
       );
     });
     return (
-      <div>
+      <div style={{ width: '30%', margin: '0 auto' }}>
         {todoList}
         <input
           type="text"
