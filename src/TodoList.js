@@ -15,8 +15,7 @@ class TodoList extends React.Component {
 
   handleClick(todoId) {
     const updatedTodos = this.state.todos.slice();
-    let id = updatedTodos[todoId].statusId;
-    updatedTodos[todoId].statusId = ++id % 3;
+    updatedTodos[todoId].statusId = ++updatedTodos[todoId].statusId % 3;
     this.setState((state) => ({ todos: updatedTodos }));
   }
 
