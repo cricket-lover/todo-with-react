@@ -3,7 +3,7 @@ import React from 'react';
 class TodoInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = { value: props.value };
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
   }
@@ -27,6 +27,7 @@ class TodoInput extends React.Component {
         value={this.state.value}
         onKeyDown={this.handleKeyDown}
         onChange={this.handleChange}
+        className={this.props.className}
       />
     );
   }
