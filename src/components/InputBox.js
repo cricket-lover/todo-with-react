@@ -1,9 +1,9 @@
 import React from 'react';
 
-class TodoInput extends React.Component {
+class InputBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: props.value };
+    this.state = { value: props.value || '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
   }
@@ -14,7 +14,8 @@ class TodoInput extends React.Component {
   }
 
   handleKeyDown(event) {
-    if (event.keyCode === 13 && this.state.value) {
+    const value = event.target.value.trim();
+    if (event.keyCode === 13 && value !== '') {
       this.props.onEnterPress(this.state.value);
       this.setState((state) => ({ value: '' }));
     }
@@ -33,4 +34,4 @@ class TodoInput extends React.Component {
   }
 }
 
-export default TodoInput;
+export default InputBox;

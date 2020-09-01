@@ -1,5 +1,5 @@
 import React from 'react';
-import TodoInput from './TodoInput';
+import InputBox from './InputBox';
 
 class Title extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class Title extends React.Component {
   render() {
     if (this.state.isEditable) {
       return (
-        <TodoInput
+        <InputBox
           value={this.props.value}
           onEnterPress={this.updateTitle}
           className="title"
@@ -29,11 +29,7 @@ class Title extends React.Component {
       );
     }
     return (
-      <div
-        className="title"
-        onClick={this.handleClick}
-        style={{ cursor: 'pointer' }}
-      >
+      <div className="title" onClick={this.handleClick}>
         {this.props.value}
       </div>
     );
