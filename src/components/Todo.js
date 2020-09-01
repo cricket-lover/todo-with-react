@@ -1,6 +1,6 @@
 import React from 'react';
 import Title from './Title';
-import Task from './Task';
+import TaskContainer from './TaskContainer';
 import InputBox from './InputBox';
 import '../todo.css';
 
@@ -33,21 +33,13 @@ class Todo extends React.Component {
   }
 
   render() {
-    const taskList = this.state.tasks.map((todo, index) => {
-      return (
-        <Task
-          key={index}
-          taskContent={todo.content}
-          statusId={todo.statusId}
-          toggleStatus={this.toggleTaskStatus}
-          taskId={index}
-        />
-      );
-    });
     return (
       <div className="todo-container">
         <Title value={this.state.title} onChange={this.updateTitle} />
-        {taskList}
+        <TaskContainer
+          tasks={this.state.tasks}
+          toggleTaskStatus={this.toggleTaskStatus}
+        />
         <InputBox className="taskInput" onEnterPress={this.addTask} />
       </div>
     );
