@@ -2,6 +2,7 @@ import React from 'react';
 import Title from './Title';
 import TaskContainer from './TaskContainer';
 import InputBox from './InputBox';
+import { getDefaultStatus, getNextStatus } from '../status';
 import '../todo.css';
 
 class Todo extends React.Component {
@@ -18,13 +19,13 @@ class Todo extends React.Component {
 
   toggleTaskStatus(taskId) {
     const updatedTasks = this.state.tasks.slice();
-    updatedTasks[taskId].statusId = (updatedTasks[taskId].statusId + 1) % 3;
+    updatedTasks[taskId].status = getNextStatus(updatedTasks[taskId].status);
     this.setState((state) => ({ tasks: updatedTasks }));
   }
 
   addTask(value) {
     const updatedTasks = this.state.tasks.slice();
-    updatedTasks.push({ content: value, statusId: 0 });
+    updatedTasks.push({ content: value, status: getDefaultStatus() });
     this.setState((state) => ({ tasks: updatedTasks }));
   }
 

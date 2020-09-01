@@ -23,17 +23,21 @@
   margin: 5px 5px 5px 2px;
 }
 
-.done {
-  text-decoration: line-through;
-  margin: 5px 5px 7px 5px;
-}
-
-.not-done,
-.doing {
+.taskContent {
   text-decoration: none;
   margin: 5px 5px 7px 5px;
 }
+/* .done {
+  text-decoration: line-through;
+  margin: 5px 5px 7px 5px;
+} */
 
+/* .todo,
+.doing {
+  text-decoration: none;
+  margin: 5px 5px 7px 5px;
+} */
+/* 
 .fill-blue {
   background-color: lightblue;
 }
@@ -44,7 +48,7 @@
 
 .fill-orange {
   background-color: orange;
-}
+} */
 
 .title {
   font-size: 30px;
@@ -52,4 +56,28 @@
   width: 50%;
   margin: 10px 0px;
   cursor: pointer;
+}
+
+.todo .box {
+  background-color: lightblue;
+}
+
+.doing .box {
+  background-color: orange;
+}
+
+.done .box {
+  background-color: mediumseagreen;
+}
+
+.doing .taskContent {
+  text-decoration: none;
+}
+
+.todo .taskContent {
+  text-decoration: none;
+}
+
+.done .taskContent {
+  text-decoration: line-through;
 }
