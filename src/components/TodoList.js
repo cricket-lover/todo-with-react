@@ -2,7 +2,7 @@ import React from 'react';
 import Todo from './Todo';
 import TodoInput from './TodoInput';
 import Title from './Title';
-import './todo.css';
+import '../todo.css';
 
 class TodoList extends React.Component {
   constructor(props) {
