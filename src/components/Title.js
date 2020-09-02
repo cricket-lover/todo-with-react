@@ -29,8 +29,13 @@ class Title extends React.Component {
       );
     }
     return (
-      <div className="title" onClick={this.handleClick}>
-        {this.props.value}
+      <div className="title-header">
+        <p className="title" onClick={this.handleClick}>
+          {this.props.value}
+        </p>
+        <p className="delete" onClick={() => this.props.deleteTasks()}>
+          x
+        </p>
       </div>
     );
   }

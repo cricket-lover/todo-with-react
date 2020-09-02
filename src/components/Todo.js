@@ -20,6 +20,7 @@ class Todo extends React.Component {
     this.toggleTaskStatus = this.toggleTaskStatus.bind(this);
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.deleteTasks = this.deleteTasks.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
   }
 
@@ -43,6 +44,12 @@ class Todo extends React.Component {
     this.setState((state) => ({ tasks: updatedTasks }));
   }
 
+  deleteTasks() {
+    this.setState((state) => ({
+      tasks: [],
+    }));
+  }
+
   deleteTask(taskId) {
     let updatedTasks = this.state.tasks.slice();
     updatedTasks = updatedTasks.filter((task) => task.id !== taskId);
@@ -56,7 +63,11 @@ class Todo extends React.Component {
   render() {
     return (
       <div className="todo-container">
-        <Title value={this.state.title} onChange={this.updateTitle} />
+        <Title
+          value={this.state.title}
+          onChange={this.updateTitle}
+          deleteTasks={this.deleteTasks}
+        />
         <TaskContainer
           deleteTask={this.deleteTask}
           tasks={this.state.tasks}

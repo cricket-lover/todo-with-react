@@ -15,6 +15,16 @@
   cursor: pointer;
 }
 
+.title-header {
+  display: flex;
+}
+
+.title-header:hover > .delete {
+  margin: 20px 0px 0px 0px;
+  display: block;
+  cursor: pointer;
+}
+
 .task-item {
   display: flex;
   flex-wrap: wrap;
@@ -47,7 +57,7 @@
 .title {
   font-size: 30px;
   font-weight: bolder;
-  width: 50%;
+  width: 250px;
   margin: 10px 0px;
   cursor: pointer;
 }
