@@ -22,19 +22,17 @@ class Task extends React.Component {
     return (
       <div
         className={`task ${status}`}
-        onMouseEnter={this.toggleHover}
-        onMouseLeave={this.toggleHover}
+        onMouseOver={this.toggleHover}
+        onMouseOut={this.toggleHover}
       >
         <div className="task-item">
           <p className="box"></p>
           <p className="taskContent" onClick={() => toggleStatus(taskId)}>
-            {' '}
-            {taskContent}{' '}
+            {taskContent}
           </p>
         </div>
         <p className="delete" onClick={() => deleteTask(taskId)}>
-          {' '}
-          {this.state.hover ? 'x' : ''}{' '}
+          {this.state.hover ? 'x' : ''}
         </p>
       </div>
     );
