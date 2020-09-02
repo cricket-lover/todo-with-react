@@ -23,7 +23,8 @@
   margin: 5px 5px 5px 2px;
 }
 
-.taskContent {
+.taskContent,
+.delete {
   text-decoration: none;
   margin: 5px 5px 7px 5px;
 }
@@ -58,4 +59,16 @@
 
 .done .taskContent {
   text-decoration: line-through;
+}
+
+.todo .delete {
+  text-decoration: none;
+}
+
+.doing .delete {
+  text-decoration: none;
+}
+
+.done .delete {
+  text-decoration: none;
 }

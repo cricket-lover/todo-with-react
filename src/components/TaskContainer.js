@@ -9,6 +9,7 @@ const TaskContainer = (props) => {
       status={task.status}
       toggleStatus={props.toggleTaskStatus}
       taskId={task.id}
+      deleteTask={props.deleteTask}
     />
   ));
   return <div>{taskList}</div>;
