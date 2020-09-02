@@ -5,6 +5,11 @@ import InputBox from './InputBox';
 import { getDefaultStatus, getNextStatus } from '../status';
 import '../todo.css';
 
+const generateNextId = function (prevId) {
+  const [, num] = prevId.split('_');
+  return 'id_'.concat(+num + 1);
+};
+
 class Todo extends React.Component {
   constructor(props) {
     super(props);
@@ -19,13 +24,21 @@ class Todo extends React.Component {
 
   toggleTaskStatus(taskId) {
     const updatedTasks = this.state.tasks.slice();
-    updatedTasks[taskId].status = getNextStatus(updatedTasks[taskId].status);
+    const index = updatedTasks.findIndex((task) => task.id === taskId);
+    updatedTasks[index].status = getNextStatus(updatedTasks[index].status);
     this.setState((state) => ({ tasks: updatedTasks }));
   }
 
   addTask(value) {
     const updatedTasks = this.state.tasks.slice();
-    updatedTasks.push({ content: value, status: getDefaultStatus() });
+    const prevTaskId = updatedTasks.length
+      ? updatedTasks[updatedTasks.length - 1].id
+      : 'id_-1';
+    updatedTasks.push({
+      content: value,
+      status: getDefaultStatus(),
+      id: generateNextId(prevTaskId),
+    });
     this.setState((state) => ({ tasks: updatedTasks }));
   }
 
