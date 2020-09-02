@@ -5,6 +5,16 @@
   justify-content: space-between;
 }
 
+.delete {
+  display: none;
+  font-weight: 600;
+}
+
+.task:hover > .delete {
+  display: block;
+  cursor: pointer;
+}
+
 .task-item {
   display: flex;
   flex-wrap: wrap;
@@ -64,16 +74,4 @@
 
 .done .taskContent {
   text-decoration: line-through;
-}
-
-.todo .delete {
-  text-decoration: none;
-}
-
-.doing .delete {
-  text-decoration: none;
-}
-
-.done .delete {
-  text-decoration: none;
 }
