@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 
-const InputBox = function (props) {
+const InputBox = (props) => {
   const [value, setValue] = useState(props.value || '');
 
-  function handleKeyDown(event) {
+  const handleKeyDown = (event) => {
     const value = event.target.value.trim();
     if (event.keyCode === 13 && value !== '') {
       props.onEnterPress(value);
       setValue('');
     }
-  }
+  };
 
   return (
     <input

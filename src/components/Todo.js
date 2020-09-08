@@ -5,48 +5,38 @@ import InputBox from './InputBox';
 import { getDefaultStatus, getNextStatus } from '../status';
 import '../todo.css';
 
-const generateNextId = function (prevId) {
-  const [, num] = prevId.split('_');
-  return 'id_'.concat(+num + 1);
-};
-
-const Todo = function (props) {
+const Todo = (props) => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('Todo');
+  const [prevId, setPrevId] = useState(0);
 
-  function toggleTaskStatus(taskId) {
+  const toggleTaskStatus = (taskId) => {
     const updatedTasks = tasks.slice();
     const index = updatedTasks.findIndex((task) => task.id === taskId);
     updatedTasks[index].status = getNextStatus(updatedTasks[index].status);
     setTasks(updatedTasks);
-  }
+  };
 
-  function addTask(value) {
+  const addTask = (value) => {
     const updatedTasks = tasks.slice();
-    const prevTaskId = updatedTasks.length
-      ? updatedTasks[updatedTasks.length - 1].id
-      : 'id_-1';
     updatedTasks.push({
       content: value,
       status: getDefaultStatus(),
-      id: generateNextId(prevTaskId),
+      id: prevId,
     });
     setTasks(updatedTasks);
-  }
+    setPrevId(prevId + 1);
+  };
 
-  function deleteAllTasks() {
-    setTasks([]);
-  }
+  const deleteAllTasks = () => setTasks([]);
 
-  function deleteTask(taskId) {
+  const deleteTask = (taskId) => {
     let updatedTasks = tasks.slice();
     updatedTasks = updatedTasks.filter((task) => task.id !== taskId);
     setTasks(updatedTasks);
-  }
+  };
 
-  function updateTitle(title) {
-    setTitle(title);
-  }
+  const updateTitle = (title) => setTitle(title);
 
   return (
     <div className="todo-container">

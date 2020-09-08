@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import InputBox from './InputBox';
 
-const Title = function (props) {
+const Title = (props) => {
   const [isEditable, setIsEditable] = useState(false);
 
-  function handleClick() {
+  const handleClick = () => {
     setIsEditable(true);
-  }
+  };
 
-  function updateTitle(value) {
+  const updateTitle = (value) => {
     setIsEditable(false);
     props.onChange(value);
-  }
+  };
 
   if (isEditable) {
     return (
