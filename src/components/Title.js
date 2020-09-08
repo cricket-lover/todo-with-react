@@ -1,44 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InputBox from './InputBox';
 
-class Title extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isEditable: false };
-    this.handleClick = this.handleClick.bind(this);
-    this.updateTitle = this.updateTitle.bind(this);
+const Title = function (props) {
+  const [isEditable, setIsEditable] = useState(false);
+
+  function handleClick() {
+    setIsEditable(true);
   }
 
-  handleClick() {
-    this.setState({ isEditable: true });
+  function updateTitle(value) {
+    setIsEditable(false);
+    props.onChange(value);
   }
 
-  updateTitle(value) {
-    this.setState({ isEditable: false });
-    this.props.onChange(value);
-  }
-
-  render() {
-    if (this.state.isEditable) {
-      return (
-        <InputBox
-          value={this.props.value}
-          onEnterPress={this.updateTitle}
-          className="title"
-        />
-      );
-    }
+  if (isEditable) {
     return (
-      <div className="title-header">
-        <p className="title" onClick={this.handleClick}>
-          {this.props.value}
-        </p>
-        <p className="delete" onClick={() => this.props.deleteAllTasks()}>
-          x
-        </p>
-      </div>
+      <InputBox
+        value={props.value}
+        onEnterPress={updateTitle}
+        className="title"
+      />
     );
   }
-}
+  return (
+    <div className="title-header">
+      <p className="title" onClick={handleClick}>
+        {props.value}
+      </p>
+      <p className="delete" onClick={() => props.deleteAllTasks()}>
+        x
+      </p>
+    </div>
+  );
+};
 
 export default Title;
