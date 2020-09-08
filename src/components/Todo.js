@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Title from './Title';
 import TaskContainer from './TaskContainer';
 import InputBox from './InputBox';
@@ -10,29 +10,19 @@ const generateNextId = function (prevId) {
   return 'id_'.concat(+num + 1);
 };
 
-class Todo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tasks: [],
-      title: 'Todo',
-    };
-    this.toggleTaskStatus = this.toggleTaskStatus.bind(this);
-    this.addTask = this.addTask.bind(this);
-    this.deleteTask = this.deleteTask.bind(this);
-    this.deleteAllTasks = this.deleteAllTasks.bind(this);
-    this.updateTitle = this.updateTitle.bind(this);
-  }
+const Todo = function (props) {
+  const [tasks, setTasks] = useState([]);
+  const [title, setTitle] = useState('Todo');
 
-  toggleTaskStatus(taskId) {
-    const updatedTasks = this.state.tasks.slice();
+  function toggleTaskStatus(taskId) {
+    const updatedTasks = tasks.slice();
     const index = updatedTasks.findIndex((task) => task.id === taskId);
     updatedTasks[index].status = getNextStatus(updatedTasks[index].status);
-    this.setState((state) => ({ tasks: updatedTasks }));
+    setTasks(updatedTasks);
   }
 
-  addTask(value) {
-    const updatedTasks = this.state.tasks.slice();
+  function addTask(value) {
+    const updatedTasks = tasks.slice();
     const prevTaskId = updatedTasks.length
       ? updatedTasks[updatedTasks.length - 1].id
       : 'id_-1';
@@ -41,42 +31,38 @@ class Todo extends React.Component {
       status: getDefaultStatus(),
       id: generateNextId(prevTaskId),
     });
-    this.setState((state) => ({ tasks: updatedTasks }));
+    setTasks(updatedTasks);
   }
 
-  deleteAllTasks() {
-    this.setState((state) => ({
-      tasks: [],
-    }));
+  function deleteAllTasks() {
+    setTasks([]);
   }
 
-  deleteTask(taskId) {
-    let updatedTasks = this.state.tasks.slice();
+  function deleteTask(taskId) {
+    let updatedTasks = tasks.slice();
     updatedTasks = updatedTasks.filter((task) => task.id !== taskId);
-    this.setState((state) => ({ tasks: updatedTasks }));
+    setTasks(updatedTasks);
   }
 
-  updateTitle(title) {
-    this.setState((state) => ({ title }));
+  function updateTitle(title) {
+    setTitle(title);
   }
 
-  render() {
-    return (
-      <div className="todo-container">
-        <Title
-          value={this.state.title}
-          onChange={this.updateTitle}
-          deleteAllTasks={this.deleteAllTasks}
-        />
-        <TaskContainer
-          deleteTask={this.deleteTask}
-          tasks={this.state.tasks}
-          toggleTaskStatus={this.toggleTaskStatus}
-        />
-        <InputBox className="taskInput" onEnterPress={this.addTask} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="todo-container">
+      <Title
+        value={title}
+        onChange={updateTitle}
+        deleteAllTasks={deleteAllTasks}
+      />
+      <TaskContainer
+        deleteTask={deleteTask}
+        tasks={tasks}
+        toggleTaskStatus={toggleTaskStatus}
+      />
+      <InputBox className="taskInput" onEnterPress={addTask} />
+    </div>
+  );
+};
 
 export default Todo;
