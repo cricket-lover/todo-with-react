@@ -20,7 +20,7 @@ class Todo extends React.Component {
     this.toggleTaskStatus = this.toggleTaskStatus.bind(this);
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
-    this.deleteTasks = this.deleteTasks.bind(this);
+    this.deleteAllTasks = this.deleteAllTasks.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
   }
 
@@ -44,7 +44,7 @@ class Todo extends React.Component {
     this.setState((state) => ({ tasks: updatedTasks }));
   }
 
-  deleteTasks() {
+  deleteAllTasks() {
     this.setState((state) => ({
       tasks: [],
     }));
@@ -66,7 +66,7 @@ class Todo extends React.Component {
         <Title
           value={this.state.title}
           onChange={this.updateTitle}
-          deleteTasks={this.deleteTasks}
+          deleteAllTasks={this.deleteAllTasks}
         />
         <TaskContainer
           deleteTask={this.deleteTask}

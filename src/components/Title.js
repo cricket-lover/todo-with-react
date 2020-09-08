@@ -33,7 +33,7 @@ class Title extends React.Component {
         <p className="title" onClick={this.handleClick}>
           {this.props.value}
         </p>
-        <p className="delete" onClick={() => this.props.deleteTasks()}>
+        <p className="delete" onClick={() => this.props.deleteAllTasks()}>
           x
         </p>
       </div>
