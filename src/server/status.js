@@ -6,4 +6,4 @@ const getNextStatus = (currentStatus) => {
   return nextStatusList[currentStatus];
 };
 
-export { getDefaultStatus, getNextStatus };
+module.exports = { getDefaultStatus, getNextStatus };

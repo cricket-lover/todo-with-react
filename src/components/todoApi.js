@@ -1,41 +1,40 @@
-import { getDefaultStatus, getNextStatus } from '../status';
-
-let title = 'Todo';
-let tasks = [];
-let prevId = 0;
-
-const TodoAPI = {};
-
-TodoAPI.addTask = (value) => {
-  const updatedTasks = tasks.slice();
-  updatedTasks.push({
-    content: value,
-    status: getDefaultStatus(),
-    id: prevId++,
+const postReq = (url, data) => {
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
   });
-  tasks = [...updatedTasks];
-  return updatedTasks;
 };
 
-TodoAPI.toggleTaskStatus = (taskId) => {
-  const updatedTasks = tasks.slice();
-  const index = updatedTasks.findIndex((task) => task.id === taskId);
-  updatedTasks[index].status = getNextStatus(updatedTasks[index].status);
-  tasks = [...updatedTasks];
-  return updatedTasks;
+const getTodo = () => fetch('/api/getTodo').then((res) => res.json());
+
+const addTask = (task) => {
+  return postReq('/api/addTask', { content: task });
 };
 
-TodoAPI.deleteAllTasks = () => {
-  tasks = [];
+const toggleTaskStatus = (taskId) => {
+  return postReq('/api/toggleTaskStatus', { taskId });
 };
 
-TodoAPI.deleteTask = (taskId) => {
-  let updatedTasks = tasks.slice();
-  updatedTasks = updatedTasks.filter((task) => task.id !== taskId);
-  tasks = [...updatedTasks];
-  return updatedTasks;
+const deleteTask = (taskId) => {
+  return postReq('/api/deleteTask', { taskId });
 };
 
-TodoAPI.updateTitle = (newTitle) => (title = newTitle);
+const updateTitle = (title) => {
+  return postReq('/api/updateTitle', { title });
+};
 
-export default TodoAPI;
+const resetTodo = () => {
+  return postReq('/api/resetTodo');
+};
+
+export default {
+  getTodo,
+  addTask,
+  toggleTaskStatus,
+  deleteTask,
+  updateTitle,
+  resetTodo,
+};
+
+// module.exports = TodoAPI;
