@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Title from './Title';
 import TaskContainer from './TaskContainer';
 import InputBox from './InputBox';
-import { getDefaultStatus, getNextStatus } from '../status';
+import TodoAPI from './todoApi';
 import '../todo.css';
 
 const Todo = (props) => {
@@ -11,32 +11,30 @@ const Todo = (props) => {
   const [prevId, setPrevId] = useState(0);
 
   const toggleTaskStatus = (taskId) => {
-    const updatedTasks = tasks.slice();
-    const index = updatedTasks.findIndex((task) => task.id === taskId);
-    updatedTasks[index].status = getNextStatus(updatedTasks[index].status);
+    const updatedTasks = TodoAPI.toggleTaskStatus(taskId);
     setTasks(updatedTasks);
   };
 
   const addTask = (value) => {
-    const updatedTasks = tasks.slice();
-    updatedTasks.push({
-      content: value,
-      status: getDefaultStatus(),
-      id: prevId,
-    });
+    const updatedTasks = TodoAPI.addTask(value);
     setTasks(updatedTasks);
     setPrevId(prevId + 1);
   };
 
-  const deleteAllTasks = () => setTasks([]);
+  const deleteAllTasks = () => {
+    TodoAPI.deleteAllTasks();
+    setTasks([]);
+  };
 
   const deleteTask = (taskId) => {
-    let updatedTasks = tasks.slice();
-    updatedTasks = updatedTasks.filter((task) => task.id !== taskId);
+    let updatedTasks = TodoAPI.deleteTask(taskId);
     setTasks(updatedTasks);
   };
 
-  const updateTitle = (title) => setTitle(title);
+  const updateTitle = (title) => {
+    const newTitle = TodoAPI.updateTitle(title);
+    setTitle(newTitle);
+  };
 
   return (
     <div className="todo-container">
