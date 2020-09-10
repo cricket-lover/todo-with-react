@@ -1,5 +1,9 @@
 const redis = require('redis');
-const client = redis.createClient({ db: 1 });
+const client = redis.createClient(
+  process.env.REDIS_URL || 'redis://localhost:6379',
+  { db: 1 }
+);
+
 const { getDefaultStatus, getNextStatus } = require('./status');
 
 const getCurrId = () => {
