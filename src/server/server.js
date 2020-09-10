@@ -1,6 +1,4 @@
 const express = require('express');
-const redis = require('redis');
-const client = redis.createClient({ db: 1 });
 const app = express();
 const {
   addTask,
@@ -10,10 +8,6 @@ const {
   updateTitle,
   resetTodo,
 } = require('./handlers');
-
-const Todo = require('./todo');
-
-app.locals.todo = new Todo(client);
 
 app.use(express.json());
 app.get('/api/getTodo', getTodo);

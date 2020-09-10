@@ -1,39 +1,38 @@
+const database = require('./database');
+
 const getTodo = async (req, res) => {
-  const { todo } = req.app.locals;
-  const todos = await todo.getTodo();
+  const todos = await database.getTodo();
   res.json(todos);
 };
 
 const addTask = async (req, res) => {
   const { content } = req.body;
-  const { todo } = req.app.locals;
-  const updatedTodos = await todo.addTask(content);
+
+  const updatedTodos = await database.addTask(content);
   res.json(updatedTodos);
 };
 
 const toggleTaskStatus = async (req, res) => {
-  const { todo } = req.app.locals;
-  const updatedTodos = await todo.toggleTaskStatus(req.body.taskId);
+  const updatedTodos = await database.toggleTaskStatus(req.body.taskId);
   res.json(updatedTodos);
 };
 
 const deleteTask = async (req, res) => {
   const { taskId } = req.body;
-  const { todo } = req.app.locals;
-  const updatedTodos = await todo.deleteTask(taskId);
+
+  const updatedTodos = await database.deleteTask(taskId);
   res.json(updatedTodos);
 };
 
 const updateTitle = async (req, res) => {
   const { title } = req.body;
-  const { todo } = req.app.locals;
-  const updatedTodos = await todo.updateTitle(title);
+
+  const updatedTodos = await database.updateTitle(title);
   res.json(updatedTodos);
 };
 
 const resetTodo = async (req, res) => {
-  const { todo } = req.app.locals;
-  res.json(await todo.resetTodo());
+  res.json(await database.resetTodo());
 };
 
 module.exports = {

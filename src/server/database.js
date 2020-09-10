@@ -1,68 +1,70 @@
+const redis = require('redis');
+const client = redis.createClient({ db: 1 });
 const { getDefaultStatus, getNextStatus } = require('./status');
 
-const getCurrId = (client) => {
+const getCurrId = () => {
   return new Promise((resolve, reject) =>
     client.incr('id', (err, res) => resolve(res))
   );
 };
 
-const getTitle = (client) => {
+const getTitle = () => {
   return new Promise((resolve, reject) => {
     client.get('title', (err, title) => resolve(title));
   });
 };
 
-const getTasks = (client) => {
+const getTasks = () => {
   return new Promise((resolve, reject) => {
     client.get('tasks', (err, tasks) => resolve(JSON.parse(tasks)));
   });
 };
 
-const getTodo = async (client) => {
-  const title = await getTitle(client);
-  const tasks = await getTasks(client);
+const getTodo = async () => {
+  const title = await getTitle();
+  const tasks = await getTasks();
   return { title: title || 'Todo', tasks: tasks || [] };
 };
 
-const setTasks = (client, tasks) => {
+const setTasks = (tasks) => {
   return new Promise((resolve, reject) => {
     client.set('tasks', JSON.stringify(tasks), (err, res) => resolve(res));
   });
 };
 
-const addTask = async (client, value) => {
-  const id = await getCurrId(client);
-  let tasks = await getTasks(client);
+const addTask = async (value) => {
+  const id = await getCurrId();
+  let tasks = await getTasks();
   tasks = tasks || [];
   tasks.push({ content: value, status: getDefaultStatus(), id });
-  await setTasks(client, tasks);
+  await setTasks(tasks);
   return tasks;
 };
 
-const toggleTaskStatus = async (client, taskId) => {
-  let tasks = await getTasks(client);
+const toggleTaskStatus = async (taskId) => {
+  let tasks = await getTasks();
   const index = tasks.findIndex((task) => task.id === taskId);
   tasks[index].status = getNextStatus(tasks[index].status);
-  await setTasks(client, tasks);
+  await setTasks(tasks);
   return tasks;
 };
 
-const deleteTask = async (client, taskId) => {
-  let tasks = await getTasks(client);
+const deleteTask = async (taskId) => {
+  let tasks = await getTasks();
   tasks = tasks.filter((task) => task.id !== taskId);
-  await setTasks(client, tasks);
+  await setTasks(tasks);
   return tasks;
 };
 
-const updateTitle = (client, newTitle) => {
+const updateTitle = (newTitle) => {
   return new Promise((resolve, reject) => {
     client.set('title', newTitle, (err, res) => resolve(res));
   });
 };
 
-const resetTodo = async (client) => {
-  await setTasks(client, []);
-  await updateTitle(client, 'Todo');
+const resetTodo = async () => {
+  await setTasks([]);
+  await updateTitle('Todo');
 };
 
 module.exports = {
