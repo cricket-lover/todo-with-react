@@ -1,40 +1,32 @@
-const { getDefaultStatus, getNextStatus } = require('./status');
+const database = require('./database');
 
 class Todo {
-  constructor() {
-    this.title = 'Todo';
-    this.tasks = [];
-    this.prevId = 0;
+  constructor(client) {
+    this.client = client;
   }
 
   addTask(value) {
-    this.tasks.push({
-      content: value,
-      status: getDefaultStatus(),
-      id: this.prevId++,
-    });
-    return this.tasks;
+    return database.addTask(this.client, value);
   }
 
   toggleTaskStatus = (taskId) => {
-    const index = this.tasks.findIndex((task) => task.id === taskId);
-    this.tasks[index].status = getNextStatus(this.tasks[index].status);
-    return this.tasks;
+    return database.toggleTaskStatus(this.client, taskId);
   };
 
   resetTodo = () => {
-    this.tasks = [];
+    database.resetTodo(this.client);
   };
 
   deleteTask = (taskId) => {
-    this.tasks = this.tasks.filter((task) => task.id !== taskId);
-    return this.tasks;
+    return database.deleteTask(this.client, taskId);
   };
 
-  updateTitle = (newTitle) => (this.title = newTitle);
+  updateTitle = (newTitle) => {
+    return database.updateTitle(this.client, newTitle);
+  };
 
   getTodo = () => {
-    return { title: this.title, tasks: this.tasks, prevId: this.prevId };
+    return database.getTodo(this.client);
   };
 }
 

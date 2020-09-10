@@ -1,38 +1,39 @@
-const getTodo = function (req, res) {
-  const { Todo } = req.app.locals;
-  res.json(Todo.getTodo());
+const getTodo = async (req, res) => {
+  const { todo } = req.app.locals;
+  const todos = await todo.getTodo();
+  res.json(todos);
 };
 
-const addTask = (req, res) => {
+const addTask = async (req, res) => {
   const { content } = req.body;
-  const { Todo } = req.app.locals;
-  const updatedTodos = Todo.addTask(content);
+  const { todo } = req.app.locals;
+  const updatedTodos = await todo.addTask(content);
   res.json(updatedTodos);
 };
 
-const toggleTaskStatus = (req, res) => {
-  const { Todo } = req.app.locals;
-  const updatedTodos = Todo.toggleTaskStatus(req.body.taskId);
+const toggleTaskStatus = async (req, res) => {
+  const { todo } = req.app.locals;
+  const updatedTodos = await todo.toggleTaskStatus(req.body.taskId);
   res.json(updatedTodos);
 };
 
-const deleteTask = (req, res) => {
+const deleteTask = async (req, res) => {
   const { taskId } = req.body;
-  const { Todo } = req.app.locals;
-  const updatedTodos = Todo.deleteTask(taskId);
+  const { todo } = req.app.locals;
+  const updatedTodos = await todo.deleteTask(taskId);
   res.json(updatedTodos);
 };
 
-const updateTitle = (req, res) => {
+const updateTitle = async (req, res) => {
   const { title } = req.body;
-  const { Todo } = req.app.locals;
-  const updatedTodos = Todo.updateTitle(title);
+  const { todo } = req.app.locals;
+  const updatedTodos = await todo.updateTitle(title);
   res.json(updatedTodos);
 };
 
-const resetTodo = (req, res) => {
-  const { Todo } = req.app.locals;
-  res.json(Todo.resetTodo());
+const resetTodo = async (req, res) => {
+  const { todo } = req.app.locals;
+  res.json(await todo.resetTodo());
 };
 
 module.exports = {

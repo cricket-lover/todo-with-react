@@ -1,4 +1,6 @@
 const express = require('express');
+const redis = require('redis');
+const client = redis.createClient({ db: 1 });
 const app = express();
 const {
   addTask,
@@ -11,7 +13,7 @@ const {
 
 const Todo = require('./todo');
 
-app.locals.Todo = new Todo();
+app.locals.todo = new Todo(client);
 
 app.use(express.json());
 app.get('/api/getTodo', getTodo);
